@@ -4,6 +4,12 @@ from google.oauth2 import service_account
 import pandas as pd
 import json
 
+'''
+This module focuses on stating functions that
+were used in the first ingestion of the data into
+google bigquery using pyspark
+'''
+
 def extract_data():
     train_data = spark.read.option("header", True).csv("data/train.csv")
     test_data = spark.read.option("header", True).csv("data/test.csv")

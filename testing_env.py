@@ -10,6 +10,19 @@ from src.model_definition import ModelFunctions
 from datetime import datetime
 
 
+'''
+This script has the objective to test the desired model in the artifacts folder
+on new data, saving to Google BQ the performance metrics for later comparisons.
+
+For our MLOps simulations, we used head and tail dataframes manipulations to select
+various customers in the testing data to simulate the creation of new 
+data to test on and check if there was any degradation in the model's performace.
+See the commented lines: the first selects different customers from time to time
+and the second one customizes the name of the table outputed with the performance
+metrics according to the model used, tail or head and date of the test. 
+'''
+
+
 model_specification = "20240625"
 pickle_path = f"artifacts\model_{model_specification}.pkl"
 

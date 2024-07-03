@@ -8,6 +8,18 @@ from src.extract_load_bigquery import BigQuery_DataOps
 from src.model_definition import ModelFunctions
 from datetime import datetime
 
+
+'''
+This script trains the model set in the ModelFunctions.
+
+For our MLOps simulations, we used head and tail dataframes manipulations to select
+various customers in the testing data to add to the training data in order to
+simulate the addition of new data to train the model (see commented line)
+
+In order to control the version of the model, the training date was added to the model's name
+(see 'formatted_date'). The model is then saved in pickle format
+'''
+
 data = BigQuery_DataOps(sub_db="experiments").extract_data(tb_id="train")
 
 data_add = BigQuery_DataOps(sub_db="experiments").extract_data(tb_id="test")

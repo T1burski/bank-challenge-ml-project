@@ -20,8 +20,12 @@ class PredictionInput(BaseModel):
     data: List[List[float]]
 
 
+# ==========================
+# Here, we specify the model we want to use that is located
+# in the artifacts folder. For version control, we have the date
+# of the training 
 model_specification = "20240627"
-#pickle_path = f"artifacts\model_{model_specification}.pkl"
+# ==========================
 
 pickle_path = os.path.join('artifacts', f"model_{model_specification}.pkl")
 
