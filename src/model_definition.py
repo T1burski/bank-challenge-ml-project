@@ -23,8 +23,7 @@ class ModelFunctions:
     def class_threshold(self, clf,  X_pred, threshold = 0.199):
 
         '''
-        classifies a transaction based on the threshold of
-        the predicted probability to be considered a fraud
+        classifies a customer based on the threshold
         '''
 
         if isinstance(X_pred, np.ndarray):

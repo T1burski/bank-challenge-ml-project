@@ -7,6 +7,12 @@ warnings.filterwarnings('ignore')
 from src.extract_load_bigquery import BigQuery_DataOps
 from src.data_preprocessing import DataPreprocessor
 
+
+'''
+This script was built to test the api the same way
+a client (in our case the streamlit front-end) does it
+'''
+
 data = BigQuery_DataOps(sub_db="experiments").extract_data(tb_id="test")
 data = data.sort_values(by=["ID_code"], ascending=False).head(5)
 data = DataPreprocessor(data).select_columns(env="prod")
