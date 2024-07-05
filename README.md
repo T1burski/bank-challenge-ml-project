@@ -8,7 +8,7 @@ This is a project focused on building a solution to predict if a customer, in a 
 A detailed scheme of the model's functionalities and tools used can be found in the image above.
 
 ### 2) The Data:
-The data was obtained on Kaggle, more specifically in a challenge developed by Santander. The data is available in the link: https://www.kaggle.com/competitions/santander-value-prediction-challenge/data .
+The data was obtained on Kaggle, more specifically in a challenge developed by Santander. The data is available in the link: https://www.kaggle.com/competitions/santander-customer-transaction-prediction/data .
 By entering this link, you can download the data. As you can see in this repository, the data is not available, and the reason is that the data's size was too big to store normally. If you download the data, add it to a folder named 'data'.
 
 ### 3) The First Data Ingestion:
