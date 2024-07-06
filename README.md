@@ -22,6 +22,22 @@ So, the 'train' data, located in the 'db_bank_experiments' Dataset, was used to 
 The first model built and also the other models obtained after other retraining processes on new data can be found, in pickle format, within the artifacts folder. As a form of version control, each model is differentiated according to the date that appears in the end of the file descrition, which represents the date when the model was trained.
 
 ### 5) ML Cycle Simulation: Testing & Retraining:
-After developing the first model, some auxiliary modules were developed tu support a mudularized version of the system in production and placed within the folder names src. Modules such as data_processing.py (to preprocess the data when training the model and in production), extract_load_bigquery.py (to execute loading and extracting data processes on BigQuery in production and when training the model) and model_definition.py (that defines the model used and its hyperparameters and the threshold function for the binary classification prediction).
+After developing the first model, some auxiliary modules were developed to support a mudularized version of the system in production and placed within the folder names src. Modules such as data_processing.py (to preprocess the data when training the model and in production), extract_load_bigquery.py (to execute loading and extracting data processes on BigQuery in production and when training the model) and model_definition.py (that defines the model used and its hyperparameters and the threshold function for the binary classification prediction).
 
 With these modules defined, the scripts model_build.py and testing_env.py were developed. model_build.py extracts the desired data from BigQuery, preprocesses it, trains the model and saves the new trained model in the artifacts folder. In this script, we can also insert new unseen data to train new versions of the model (using here the data from db_bank_experiments.test in parts.
+
+In order to simulate the creation of new data, which is followed by testing the model on new data to gather information about the performance of the model currently in production and possibly retraining the model using new data, the process describedby the image below was created, in which new models were trained on new data after we verified that the model's performance got worse over time:
+
+![image](https://github.com/T1burski/bank-challenge-ml-project/assets/100734219/aa0bbfe1-3c6f-4634-8047-c0d4bd32eb6d)
+
+head and tail were simple table operations to select different data in the db_bank_experiments.test table, simulating the creation of new data over time. The db_bank_experiments.test table has 60k rows.
+
+In the image below, on the left, we can see how our BigQuery DW was in the end of the project, with every dataset and table organized. Also, on the right, we compare the performance of the models on the unseen data db_bank_experiments.test.tail(30000) Before and After including db_bank_experiments.test.head(30000) in the training data to create the model. We can seethat indeed the performance improved when we added more data to train the model! For example, the ROC_AUC improved from 0.902 to 0.972 and the F1-Score (for the '1' positive class) improved from 0.588 to 0.755. 
+
+![image](https://github.com/T1burski/bank-challenge-ml-project/assets/100734219/05918f94-49ae-4d49-b7c4-fac399dc8c6e)
+
+The final model (that is running in production) in the model model_20240627.pkl, which was trained with all db_bank_experiments data.
+
+### 6) Deploying the Model Using FastAPI and Docker:
+After the final model was trained, we chose to deply it using a REST API, building it with FastAPI and putting it in a Docker container. The file app.py contains the REST API, which runs using the ASGI web server uvicorn.
+
