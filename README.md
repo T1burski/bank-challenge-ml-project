@@ -46,4 +46,40 @@ The interaction with the final user was decided to be made in a Web App using St
 
 ![image](https://github.com/T1burski/bank-challenge-ml-project/assets/100734219/128cdc5d-79bd-4c5c-8389-eb54f449710f)
 
-For now, the app allows the user to select the number of most recent customers the wish to predict if will make, in the future, the specific bank transaction. When the number of customers is chosen, the app will run the REST API (which is running in the Docker container), and a table below will appear containing the customer ID and the respective prediction, what can be seen in the example below in which the user chose 
+For now, the app allows the user to select the number of most recent customers the wish to predict if will make, in the future, the specific bank transaction. When the number of customers is chosen, the app will run the REST API (which is running in the Docker container), and a table below will appear containing the customer ID and the respective prediction, what can be seen in the example below in which the user chose 20 new customers to apply the predictions on:
+
+![image](https://github.com/T1burski/bank-challenge-ml-project/assets/100734219/494f60d7-aabc-4619-94b4-4ce5d755d235)
+
+Everytime the user changes the number, the classification will run again. Internally, everytime a number is chosen, the backend extracts the data from BigQuery and applies the Model through the FastAPI implementation using the post method. All customers that are pulled here are from the table db_bank_original_datasets.test, in which we do not have the target column.
+
+### 8) How to Run the Project:
+-- Create a local folder and open a terminal in it
+
+-- Clone this repository using the command:
+
+`git clone https://github.com/T1burski/bank-challenge-ml-project.git`
+
+-- On the terminal, run the command:
+
+`poetry install`
+
+and then the command:
+
+`poetry shell`
+
+-- Now, we need to create the Docker image and then build the container using it. For this, first run the following command:
+
+`docker build -t bank-transaction:api .`
+
+and then the command:
+
+`docker run -dit --name bank-transaction-api -p 3000:3000 bank-transaction:api `
+
+-- After this, with our API running in the container, let's start the streamlit front-end with the command:
+
+`streamlit run front.py `
+
+And then your browser would be able to run the Web App!
+
+Obs: For this to work, you need to set up your BigQuery Account (Sandbox one, for example), create the service account key, save it to a json file, put it within the root of the repo and name it GBQ.json. Also, you will need to make the initial ingestions of the data and run the commands of the eda.ipynb to create all datasets and tables on the BigQuery cloud.
+
