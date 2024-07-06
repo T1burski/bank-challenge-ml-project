@@ -41,3 +41,9 @@ The final model (that is running in production) in the model model_20240627.pkl,
 ### 6) Deploying the Model Using FastAPI and Docker:
 After the final model was trained, we chose to deply it using a REST API, building it with FastAPI and putting it in a Docker container. The file app.py contains the REST API, which runs using the ASGI web server uvicorn.
 
+### 7) Streamlit Front-End:
+The interaction with the final user was decided to be made in a Web App using Streamlit in which the user (the bank employee that was assigned to analyze various information about new customers, such as if they are going to, in the future, execute the specfic bank transaction). When the user opens the app, the following screen appears:
+
+![image](https://github.com/T1burski/bank-challenge-ml-project/assets/100734219/128cdc5d-79bd-4c5c-8389-eb54f449710f)
+
+For now, the app allows the user to select the number of most recent customers the wish to predict if will make, in the future, the specific bank transaction. When the number of customers is chosen, the app will run the REST API (which is running in the Docker container), and a table below will appear containing the customer ID and the respective prediction, what can be seen in the example below in which the user chose 
